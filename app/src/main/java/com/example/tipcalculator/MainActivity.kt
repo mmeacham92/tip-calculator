@@ -9,6 +9,7 @@ import android.widget.TextView
 import org.w3c.dom.Text
 
 private const val TAG = "MainActivity"
+private const val INITIAL_TIP_PERCENT = 15
 class MainActivity : AppCompatActivity() {
     private lateinit var etBaseAmount: EditText
     private lateinit var tvTipPercent: TextView
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         tvTipAmount = findViewById(R.id.tvTipAmount)
         tvTotalAmount = findViewById(R.id.tvTotalAmount)
 
+        sbTipPercent.progress = INITIAL_TIP_PERCENT
+        tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
+
         sbTipPercent.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 Log.i(TAG, "onProgressChanged $progress")
@@ -31,9 +35,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
-
             override fun onStopTrackingTouch(p0: SeekBar?) {}
-
         })
     }
 }
