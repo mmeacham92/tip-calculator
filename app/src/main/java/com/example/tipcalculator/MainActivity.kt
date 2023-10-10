@@ -32,9 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         sbTipPercent.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
-                Log.i(TAG, "onProgressChanged $progress")
                 tvTipPercent.text = "$progress%"
-                if (etBaseAmount.text.toString() != "") updateViews(etBaseAmount.text.toString().toDouble())
+                updateViews()
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -46,17 +45,24 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(value: Editable?) {
-                Log.i(TAG, "afterTextChanged $value")
-                // value represents the amount entered
-                // update tip amount to reflect value * seekbar.progress / 100
-                updateViews(value.toString().toDouble())
+                updateViews()
             }
 
         })
     }
 
-    private fun updateViews(value: Double) {
-        tvTipAmount.text = "${value * sbTipPercent.progress / 100}"
-        tvTotalAmount.text = "${value + tvTipAmount.text.toString().toDouble()}"
+    private fun updateViews() {
+        if (etBaseAmount.text.isEmpty()) {
+            tvTipAmount.text = ""
+            tvTotalAmount.text = ""
+            return
+        }
+
+        val baseAmount = etBaseAmount.text.toString().toDouble()
+        val tipPercent = sbTipPercent.progress
+        val tipAmount = baseAmount *  tipPercent / 100
+        val totalAmount = baseAmount + tipAmount
+        tvTipAmount.text = "%.2f".format(tipAmount)
+        tvTotalAmount.text = "%.2f".format(totalAmount)
     }
 }
