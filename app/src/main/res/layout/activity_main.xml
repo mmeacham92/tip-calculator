@@ -48,6 +48,20 @@
         app:layout_constraintEnd_toEndOf="@id/tvTipAmountLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvTipAmountLabel" />
 
+    <EditText
+        android:id="@+id/etBaseAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:ems="8"
+        android:hint="Bill Amount"
+        android:inputType="numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="@id/tvBaseLabel"
+        app:layout_constraintBottom_toBottomOf="@id/tvBaseLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvBaseLabel"
+        tools:layout_editor_absoluteY="36dp" />
+
     <SeekBar
         android:id="@+id/sbTipPercent"
         android:layout_width="200dp"
@@ -76,18 +90,4 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvTotalAmountLabel"
         app:layout_constraintStart_toStartOf="@+id/tvTipAmount"
         app:layout_constraintTop_toTopOf="@+id/tvTotalAmountLabel" />
-
-    <EditText
-        android:id="@+id/etBaseAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:ems="8"
-        android:hint="Bill Amount"
-        android:inputType="numberDecimal"
-        android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="@id/tvBaseLabel"
-        app:layout_constraintBottom_toBottomOf="@id/tvBaseLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvBaseLabel"
-        tools:layout_editor_absoluteY="36dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
