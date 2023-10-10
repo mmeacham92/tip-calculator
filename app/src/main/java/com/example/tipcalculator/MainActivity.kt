@@ -2,6 +2,8 @@ package com.example.tipcalculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.SeekBar
@@ -32,10 +34,29 @@ class MainActivity : AppCompatActivity() {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 Log.i(TAG, "onProgressChanged $progress")
                 tvTipPercent.text = "$progress%"
+                if (etBaseAmount.text.toString() != "") updateViews(etBaseAmount.text.toString().toDouble())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
+
+        etBaseAmount.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(value: Editable?) {
+                Log.i(TAG, "afterTextChanged $value")
+                // value represents the amount entered
+                // update tip amount to reflect value * seekbar.progress / 100
+                updateViews(value.toString().toDouble())
+            }
+
+        })
+    }
+
+    private fun updateViews(value: Double) {
+        tvTipAmount.text = "${value * sbTipPercent.progress / 100}"
+        tvTotalAmount.text = "${value + tvTipAmount.text.toString().toDouble()}"
     }
 }
