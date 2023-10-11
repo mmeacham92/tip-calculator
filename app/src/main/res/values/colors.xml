@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="lilac">#C4D2E6</color>
+    <color name="grape">#435670</color>
+    <color name="tan">#E6DAC3</color>
 </resources>
