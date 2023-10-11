@@ -22,8 +22,8 @@
         android:id="@+id/tvTipPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="48dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/tvBaseLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvBaseLabel"
@@ -33,7 +33,7 @@
         android:id="@+id/tvTipAmountLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="72dp"
         android:text="Tip Amount"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="@id/tvTipPercent"
@@ -58,11 +58,11 @@
         android:ems="8"
         android:hint="Bill Amount"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/tvBaseLabel"
         app:layout_constraintStart_toEndOf="@+id/tvBaseLabel"
-        app:layout_constraintTop_toTopOf="@id/tvBaseLabel"
-        tools:layout_editor_absoluteY="36dp" />
+        app:layout_constraintTop_toTopOf="@id/tvBaseLabel" />
 
     <SeekBar
         android:id="@+id/sbTipPercent"
@@ -70,6 +70,7 @@
         android:layout_height="wrap_content"
         android:max="30"
         app:layout_constraintBottom_toBottomOf="@+id/tvTipPercent"
+        app:layout_constraintEnd_toEndOf="@+id/etBaseAmount"
         app:layout_constraintStart_toStartOf="@+id/etBaseAmount"
         app:layout_constraintTop_toTopOf="@+id/tvTipPercent" />
 
@@ -111,6 +112,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/sbTipPercent"
         app:layout_constraintStart_toStartOf="@+id/sbTipPercent"
         app:layout_constraintTop_toBottomOf="@+id/sbTipPercent"

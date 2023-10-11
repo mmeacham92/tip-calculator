@@ -1,5 +1,6 @@
 package com.example.tipcalculator
 
+import android.animation.ArgbEvaluator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +8,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 
 private const val TAG = "MainActivity"
 private const val INITIAL_TIP_PERCENT = 15
@@ -55,13 +57,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateTipDescription(tipPercent: Int) {
         val tipDescription = when (tipPercent) {
-            in 0..9 -> "\uD83D\uDCA9"
-            in 10..14 -> "\uD83D\uDC4C"
-            in 15..19 -> "\uD83D\uDC4D"
-            in 20..24 -> "⭐"
-            else -> "\uD83D\uDC8E"
+            in 0..9 -> "Poor"
+            in 10..14 -> "Acceptable"
+            in 15..19 -> "Good"
+            in 20..24 -> "Great"
+            else -> "Amazing"
         }
         tvTipDescription.text = tipDescription
+
+        // update the color of the text here as well
+        // color interpolation: https://developer.android.com/reference/kotlin/android/animation/ArgbEvaluator?authuser=1
+
+        var color = ArgbEvaluator().evaluate(
+            tipPercent.toFloat() / sbTipPercent.max,
+            ContextCompat.getColor(this, R.color.best_tip),
+            ContextCompat.getColor(this, R.color.worst_tip)
+        ) as Int
+
+        tvTipDescription.setTextColor(color)
     }
 
     private fun updateViews() {
