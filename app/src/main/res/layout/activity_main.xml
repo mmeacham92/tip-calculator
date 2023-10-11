@@ -33,7 +33,7 @@
         android:id="@+id/tvTipAmountLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
         android:text="Tip Amount"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="@id/tvTipPercent"
@@ -59,9 +59,9 @@
         android:hint="Bill Amount"
         android:inputType="numberDecimal"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="@id/tvBaseLabel"
         app:layout_constraintBottom_toBottomOf="@id/tvBaseLabel"
         app:layout_constraintStart_toEndOf="@+id/tvBaseLabel"
+        app:layout_constraintTop_toTopOf="@id/tvBaseLabel"
         tools:layout_editor_absoluteY="36dp" />
 
     <SeekBar
@@ -105,4 +105,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTipDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        app:layout_constraintEnd_toEndOf="@+id/sbTipPercent"
+        app:layout_constraintStart_toStartOf="@+id/sbTipPercent"
+        app:layout_constraintTop_toBottomOf="@+id/sbTipPercent"
+        tools:text="Acceptable" />
 </androidx.constraintlayout.widget.ConstraintLayout>
