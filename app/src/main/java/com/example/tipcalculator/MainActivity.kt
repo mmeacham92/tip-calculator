@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTotalAmount: TextView
     private lateinit var tvTipDescription: TextView
     private lateinit var etSplitBetween: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,11 +79,10 @@ class MainActivity : AppCompatActivity() {
 
         // update the color of the text here as well
         // color interpolation: https://developer.android.com/reference/kotlin/android/animation/ArgbEvaluator?authuser=1
-
         var color = ArgbEvaluator().evaluate(
             tipPercent.toFloat() / sbTipPercent.max,
-            ContextCompat.getColor(this, R.color.best_tip),
-            ContextCompat.getColor(this, R.color.worst_tip)
+            ContextCompat.getColor(this, R.color.worst_tip),
+            ContextCompat.getColor(this, R.color.best_tip)
         ) as Int
 
         tvTipDescription.setTextColor(color)
