@@ -37,8 +37,6 @@ class MainActivity : AppCompatActivity() {
         etSplitBetween = findViewById(R.id.etSplitBetween)
         cbRoundTotal = findViewById(R.id.cbRoundTotal)
 
-
-
         sbTipPercent.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
         updateTipDescription(INITIAL_TIP_PERCENT)
@@ -89,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 
         // update the color of the text here as well
         // color interpolation: https://developer.android.com/reference/kotlin/android/animation/ArgbEvaluator?authuser=1
-        var color = ArgbEvaluator().evaluate(
+        val color = ArgbEvaluator().evaluate(
             tipPercent.toFloat() / sbTipPercent.max,
             ContextCompat.getColor(this, R.color.worst_tip),
             ContextCompat.getColor(this, R.color.best_tip)
@@ -111,16 +109,8 @@ class MainActivity : AppCompatActivity() {
         var totalAmount = baseAmount + tipAmount
         val splitBetween = etSplitBetween.text.toString().toInt()
 
-        // super rough!!!
+        // TODO: implement roundup functionality when splitBetween > 1
         if (isRoundedUp) {
-            // update tip amount
-            // calculate a new tipPercent
-            //   tipPercent = tipAmount / baseAmount
-            // update SeekBar progress to be the new tipPercent / 100 to two decimals
-            //   sbTipPercent.progress = "%.2f".format(tipPercent / 100)
-            // update tip description based on new tipPercent
-            // update total amount
-
             val roundedTotal = Math.ceil(totalAmount)
             tipAmount += roundedTotal - totalAmount
             totalAmount = roundedTotal
