@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.RadioGroup.OnCheckedChangeListener
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -38,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         etSplitBetween = findViewById(R.id.etSplitBetween)
         cbRoundTotal = findViewById(R.id.cbRoundTotal)
 
+
+
         sbTipPercent.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
         updateTipDescription(INITIAL_TIP_PERCENT)
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         sbTipPercent.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 tvTipPercent.text = "$progress%"
-                updateViews()
+                updateViews(cbRoundTotal.isChecked)
                 updateTipDescription(progress)
             }
 
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(value: Editable?) {
-                updateViews()
+                updateViews(cbRoundTotal.isChecked)
             }
         })
 
@@ -67,21 +68,12 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(value: Editable?) {
-                updateViews()
+                updateViews(cbRoundTotal.isChecked)
             }
         })
 
         cbRoundTotal.setOnCheckedChangeListener {buttonView, isChecked ->
-            // update tip amount
-            // calculate a new tipPercent
-            //   tipPercent = tipAmount / baseAmount
-            // update SeekBar progress to be the new tipPercent / 100 to two decimals
-            //   sbTipPercent.progress = "%.2f".format(tipPercent / 100)
-            // update tip description based on new tipPercent
-            // update total amount
-
-
-            // question: how to handle if user checks CheckBox before putting in a balance?
+            updateViews(isChecked)
         }
     }
 
@@ -106,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         tvTipDescription.setTextColor(color)
     }
 
-    private fun updateViews() {
+    private fun updateViews(isRoundedUp: Boolean) {
         if (etBaseAmount.text.isEmpty() || etSplitBetween.text.isEmpty()) {
             tvTipAmount.text = ""
             tvTotalAmount.text = ""
@@ -114,10 +106,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         val baseAmount = etBaseAmount.text.toString().toDouble()
-        val tipPercent = sbTipPercent.progress
-        val tipAmount = baseAmount *  tipPercent / 100
-        val totalAmount = baseAmount + tipAmount
+        var tipPercent = sbTipPercent.progress
+        var tipAmount = baseAmount *  tipPercent / 100
+        var totalAmount = baseAmount + tipAmount
         val splitBetween = etSplitBetween.text.toString().toInt()
+
+        // super rough!!!
+        if (isRoundedUp) {
+            // update tip amount
+            // calculate a new tipPercent
+            //   tipPercent = tipAmount / baseAmount
+            // update SeekBar progress to be the new tipPercent / 100 to two decimals
+            //   sbTipPercent.progress = "%.2f".format(tipPercent / 100)
+            // update tip description based on new tipPercent
+            // update total amount
+
+            val roundedTotal = Math.ceil(totalAmount)
+            tipAmount += roundedTotal - totalAmount
+            totalAmount = roundedTotal
+            tipPercent = (tipAmount / baseAmount * 100).toInt()
+            sbTipPercent.progress = tipPercent
+
+            // question: how to handle if user checks CheckBox before putting in a balance?
+            // possible solution: whenever the user interacts with the baseAmount EditText or the SeekBar, we could set the CheckBox to be unchecked
+        }
+
         tvTipAmount.text = "%.2f".format(tipAmount / splitBetween)
         tvTotalAmount.text = "%.2f".format(totalAmount / splitBetween)
     }
