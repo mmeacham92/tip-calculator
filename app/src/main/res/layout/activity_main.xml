@@ -114,6 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvTipAmountLabel"
         app:layout_constraintStart_toStartOf="@+id/sbTipPercent"
         app:layout_constraintTop_toTopOf="@+id/tvTipAmountLabel"
@@ -124,6 +126,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvTotalAmountLabel"
         app:layout_constraintStart_toStartOf="@+id/tvTipAmount"
         app:layout_constraintTop_toTopOf="@+id/tvTotalAmountLabel"
@@ -148,6 +152,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Round Up Total"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tvTotalAmount"
         app:layout_constraintTop_toBottomOf="@+id/tvTotalAmount" />
 

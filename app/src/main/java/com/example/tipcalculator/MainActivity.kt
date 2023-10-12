@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.RadioGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTotalAmount: TextView
     private lateinit var tvTipDescription: TextView
     private lateinit var etSplitBetween: EditText
+    private lateinit var cbRoundTotal: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         tvTotalAmount = findViewById(R.id.tvTotalAmount)
         tvTipDescription = findViewById(R.id.tvTipDescription)
         etSplitBetween = findViewById(R.id.etSplitBetween)
+        cbRoundTotal = findViewById(R.id.cbRoundTotal)
 
         sbTipPercent.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
@@ -65,6 +70,19 @@ class MainActivity : AppCompatActivity() {
                 updateViews()
             }
         })
+
+        cbRoundTotal.setOnCheckedChangeListener {buttonView, isChecked ->
+            // update tip amount
+            // calculate a new tipPercent
+            //   tipPercent = tipAmount / baseAmount
+            // update SeekBar progress to be the new tipPercent / 100 to two decimals
+            //   sbTipPercent.progress = "%.2f".format(tipPercent / 100)
+            // update tip description based on new tipPercent
+            // update total amount
+
+
+            // question: how to handle if user checks CheckBox before putting in a balance?
+        }
     }
 
     private fun updateTipDescription(tipPercent: Int) {
