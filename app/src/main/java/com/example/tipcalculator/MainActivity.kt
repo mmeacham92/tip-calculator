@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import kotlin.math.ceil
 
 private const val TAG = "MainActivity"
 private const val INITIAL_TIP_PERCENT = 15
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
         updateTipDescription(INITIAL_TIP_PERCENT)
         cbRoundTotal.visibility = View.INVISIBLE
+        etSplitBetween.setText(INITIAL_SPLIT_BETWEEN.toString())
 
         sbTipPercent.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
@@ -122,9 +124,6 @@ class MainActivity : AppCompatActivity() {
             totalAmount = roundedTotal
             tipPercent = (tipAmount / baseAmount * 100).toInt()
             sbTipPercent.progress = tipPercent
-
-            // question: how to handle if user checks CheckBox before putting in a balance?
-            // possible solution: whenever the user interacts with the baseAmount EditText or the SeekBar, we could set the CheckBox to be unchecked
         }
 
         tvTipAmount.text = "%.2f".format(tipAmount / splitBetween)
