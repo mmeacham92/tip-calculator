@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.SeekBar
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         sbTipPercent.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
         updateTipDescription(INITIAL_TIP_PERCENT)
+        cbRoundTotal.visibility = View.INVISIBLE
 
         sbTipPercent.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
@@ -57,6 +59,10 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(value: Editable?) {
+                if (value.toString().isEmpty()) {
+                    cbRoundTotal.visibility = View.INVISIBLE
+                    cbRoundTotal.isChecked = false
+                } else cbRoundTotal.visibility = View.VISIBLE
                 updateViews(cbRoundTotal.isChecked)
             }
         })
