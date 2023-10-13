@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTipDescription: TextView
     private lateinit var etSplitBetween: EditText
     private lateinit var cbRoundTotal: CheckBox
+    private lateinit var tvTipTotalWhenSplit: TextView
+    private lateinit var tvTotalAmountWhenSplit: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +40,15 @@ class MainActivity : AppCompatActivity() {
         tvTipDescription = findViewById(R.id.tvTipDescription)
         etSplitBetween = findViewById(R.id.etSplitBetween)
         cbRoundTotal = findViewById(R.id.cbRoundTotal)
+        tvTipTotalWhenSplit = findViewById(R.id.tvTipTotalWhenSplit)
+        tvTotalAmountWhenSplit = findViewById(R.id.tvTotalAmountWhenSplit)
 
         sbTipPercent.progress = INITIAL_TIP_PERCENT
         tvTipPercent.text = "$INITIAL_TIP_PERCENT%"
         updateTipDescription(INITIAL_TIP_PERCENT)
         cbRoundTotal.visibility = View.INVISIBLE
+        tvTipTotalWhenSplit.visibility = View.INVISIBLE
+        tvTotalAmountWhenSplit.visibility = View.INVISIBLE
         etSplitBetween.setText(INITIAL_SPLIT_BETWEEN.toString())
 
         sbTipPercent.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
@@ -74,6 +80,16 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(value: Editable?) {
+                if (value.toString().isEmpty()) {
+                    tvTipTotalWhenSplit.visibility = View.INVISIBLE
+                    tvTotalAmountWhenSplit.visibility = View.INVISIBLE
+                    return
+                }
+
+                if (value.toString().toInt() > 1) {
+                    tvTipTotalWhenSplit.visibility = View.VISIBLE
+                    tvTotalAmountWhenSplit.visibility = View.VISIBLE
+                }
                 updateViews(cbRoundTotal.isChecked)
             }
         })
@@ -111,11 +127,11 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val baseAmount = etBaseAmount.text.toString().toDouble()
+        val splitBetween = etSplitBetween.text.toString().toInt()
+        val baseAmount = etBaseAmount.text.toString().toDouble() / splitBetween
         var tipPercent = sbTipPercent.progress
         var tipAmount = baseAmount *  tipPercent / 100
         var totalAmount = baseAmount + tipAmount
-        val splitBetween = etSplitBetween.text.toString().toInt()
 
         // TODO: implement roundup functionality when splitBetween > 1
         if (isRoundedUp) {
@@ -126,7 +142,11 @@ class MainActivity : AppCompatActivity() {
             sbTipPercent.progress = tipPercent
         }
 
-        tvTipAmount.text = "%.2f".format(tipAmount / splitBetween)
-        tvTotalAmount.text = "%.2f".format(totalAmount / splitBetween)
+        tvTipAmount.text = "%.2f".format(tipAmount)
+        tvTotalAmount.text = "%.2f".format(totalAmount)
+        val splitTipTotalText = "%.2f".format(tvTipAmount.text.toString().toDouble() * splitBetween)
+        val splitTotalAmountText = "%.2f".format(tvTotalAmount.text.toString().toDouble() * splitBetween)
+        tvTipTotalWhenSplit.text = "(${splitTipTotalText})"
+        tvTotalAmountWhenSplit.text = "(${splitTotalAmountText})"
     }
 }

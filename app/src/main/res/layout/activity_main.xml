@@ -101,8 +101,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="4"
-        android:text=""
         android:inputType="number"
+        android:text=""
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvSplitBill"
@@ -156,6 +156,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/tvTipTotalWhenSplit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTipAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTipAmount"
+        app:layout_constraintTop_toTopOf="@+id/tvTipAmount"
+        tools:text="(20.00)" />
+
+    <TextView
+        android:id="@+id/tvTotalAmountWhenSplit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTotalAmount"
+        app:layout_constraintStart_toStartOf="@+id/tvTipTotalWhenSplit"
+        app:layout_constraintTop_toTopOf="@+id/tvTotalAmount"
+        tools:text="(100.00)" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
