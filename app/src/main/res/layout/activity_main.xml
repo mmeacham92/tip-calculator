@@ -107,7 +107,8 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvSplitBill"
         app:layout_constraintStart_toStartOf="@+id/sbTipPercent"
-        app:layout_constraintTop_toTopOf="@+id/tvSplitBill" />
+        app:layout_constraintTop_toTopOf="@+id/tvSplitBill"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/tvTipAmount"
